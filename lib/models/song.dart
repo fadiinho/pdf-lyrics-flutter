@@ -1,10 +1,10 @@
 import 'package:pdf_lyrics/models/error.dart';
 
 class Song {
-  String? name;
-  String? lyrics;
-  String? artist;
-  Uri? url;
+  String name;
+  String lyrics;
+  String artist;
+  Uri url;
 
   Song(this.name, this.lyrics, this.artist, this.url);
 
