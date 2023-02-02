@@ -32,7 +32,6 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
         _song = response;
       });
-
     } on SongNotFoundException {
       // TODO: Show error for the user
       // ignore: avoid_print
@@ -47,45 +46,50 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Search Song",
-                  ),
-                  onChanged: (String value) {
-                    searchTerm = value;
-                  },
-                  onSubmitted: (String value) {
-                    searchSong();
-                  },
-                ),
-              ),
-            ),
-            Container(child: () {
-              if (_isLoading) {
-                return const CircularProgressIndicator();
-              }
-
-              if (_song == null) {
-                return null;
-              }
-
-              return SongContainer(song: _song!);
-            }())
-          ],
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-    );
+        body: ListView(children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Search Song",
+                      ),
+                      onChanged: (String value) {
+                        searchTerm = value;
+                      },
+                      onSubmitted: (String value) {
+                        searchSong();
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                    alignment: Alignment.topCenter,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: () {
+                      if (_isLoading) {
+                        return const CircularProgressIndicator();
+                      }
+
+                      if (_song == null) {
+                        return null;
+                      }
+
+                      return SongContainer(song: _song!);
+                    }())
+              ],
+            ),
+          ),
+        ]));
   }
 }
