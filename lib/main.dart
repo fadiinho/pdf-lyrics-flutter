@@ -11,9 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PDF Lyrics',
       theme: ThemeData(
+        colorScheme: ColorScheme.dark(
+          primary: Colors.deepPurple[600]!,
+          background: Colors.black,
         ),
+        appBarTheme: AppBarTheme(
+          color: Colors.deepPurple[600]!,
+        ),
+        scaffoldBackgroundColor: Colors.black.withOpacity(0.95)
       ),
       home: const HomePage(title: 'PDF Lyrics'),
     );
