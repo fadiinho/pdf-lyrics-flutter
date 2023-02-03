@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         body: ListView(children: [
           Center(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Padding(
                   padding:
@@ -80,10 +80,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                TextButton(
+                OutlinedButton(
                   onPressed: () {
                     searchSong();
                   },
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 58),
+                    side: BorderSide(
+                      color: Colors.grey[600]!
+                    )
+                  ),
                   child: const Icon(Icons.search),
                 )
               ],
