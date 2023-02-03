@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
         _error = "Música não encontrada!";
       });
-    } catch(e) {
+    } catch (e) {
       // ignore: avoid_print
       print(e.toString());
       setState(() {
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 340),
                     child: TextField(
@@ -79,6 +79,12 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    searchSong();
+                  },
+                  child: const Icon(Icons.search),
                 )
               ],
             ), // Row
