@@ -58,14 +58,14 @@ class _HomePageState extends State<HomePage> {
         ),
         body: ListView(children: [
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   child: Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
+                    constraints: const BoxConstraints(maxWidth: 340),
                     child: TextField(
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -79,28 +79,28 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-                ),
-                Container(
-                    alignment: Alignment.topCenter,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: () {
-                      if (_isLoading) {
-                        return const CircularProgressIndicator();
-                      }
-
-                      if (_error.isNotEmpty) {
-                        return CustomErrorWidget(error: _error);
-                      }
-
-                      if (_song == null) {
-                        return null;
-                      }
-
-                      return SongContainer(song: _song!);
-                    }())
+                )
               ],
-            ),
-          ),
+            ), // Row
+          ), // Center
+          Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: () {
+                if (_isLoading) {
+                  return const CircularProgressIndicator();
+                }
+
+                if (_error.isNotEmpty) {
+                  return CustomErrorWidget(error: _error);
+                }
+
+                if (_song == null) {
+                  return null;
+                }
+
+                return SongContainer(song: _song!);
+              }()), // Container
         ]));
   }
 }
