@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf_lyrics/models/error.dart';
 import 'package:pdf_lyrics/models/song.dart';
 import 'package:pdf_lyrics/provider/song_provider.dart';
+import 'package:pdf_lyrics/widgets/error.dart';
 import 'package:pdf_lyrics/widgets/song_container.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Song? _song;
   bool _isLoading = false;
+  String _error = "";
 
   SongProvider songProvider = SongProvider();
   String searchTerm = "";
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   void searchSong() async {
     setState(() {
       _isLoading = true;
+      _error = "";
     });
 
     try {
@@ -33,12 +36,16 @@ class _HomePageState extends State<HomePage> {
         _song = response;
       });
     } on SongNotFoundException {
-      // TODO: Show error for the user
-      // ignore: avoid_print
-      print("Song not found!");
-
       setState(() {
         _isLoading = false;
+        _error = "Música não encontrada!";
+      });
+    } catch(e) {
+      // ignore: avoid_print
+      print(e.toString());
+      setState(() {
+        _isLoading = false;
+        _error = "Algo deu errado!";
       });
     }
   }
@@ -79,6 +86,10 @@ class _HomePageState extends State<HomePage> {
                     child: () {
                       if (_isLoading) {
                         return const CircularProgressIndicator();
+                      }
+
+                      if (_error.isNotEmpty) {
+                        return CustomErrorWidget(error: _error);
                       }
 
                       if (_song == null) {
