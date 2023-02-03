@@ -56,63 +56,60 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: ListView(children: [
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 340),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Search Song",
+        body: ListView(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            children: [
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(right: 5),
+                      constraints: const BoxConstraints(maxWidth: 340),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Search Song",
+                        ),
+                        onChanged: (String value) {
+                          searchTerm = value;
+                        },
+                        onSubmitted: (String value) {
+                          searchSong();
+                        },
                       ),
-                      onChanged: (String value) {
-                        searchTerm = value;
-                      },
-                      onSubmitted: (String value) {
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
                         searchSong();
                       },
-                    ),
-                  ),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    searchSong();
-                  },
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(0, 58),
-                    side: BorderSide(
-                      color: Colors.grey[600]!
+                      style: OutlinedButton.styleFrom(
+                          minimumSize: const Size(0, 58),
+                          side: BorderSide.none),
+                      child: const Icon(Icons.search),
                     )
-                  ),
-                  child: const Icon(Icons.search),
-                )
-              ],
-            ), // Row
-          ), // Center
-          Container(
-              alignment: Alignment.topCenter,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: () {
-                if (_isLoading) {
-                  return const CircularProgressIndicator();
-                }
+                  ],
+                ), // Row
+              ), // Center
+              Container(
+                  margin: const EdgeInsets.symmetric(vertical: 20),
+                  alignment: Alignment.topCenter,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: () {
+                    if (_isLoading) {
+                      return const CircularProgressIndicator();
+                    }
 
-                if (_error.isNotEmpty) {
-                  return CustomErrorWidget(error: _error);
-                }
+                    if (_error.isNotEmpty) {
+                      return CustomErrorWidget(error: _error);
+                    }
 
-                if (_song == null) {
-                  return null;
-                }
+                    if (_song == null) {
+                      return null;
+                    }
 
-                return SongContainer(song: _song!);
-              }()), // Container
-        ]));
+                    return SongContainer(song: _song!);
+                  }()), // Container
+            ]));
   }
 }
